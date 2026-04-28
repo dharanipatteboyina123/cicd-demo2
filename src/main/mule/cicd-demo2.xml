@@ -11,6 +11,7 @@ http://www.mulesoft.org/schema/mule/idp-ar-tis-idp-140 http://www.mulesoft.org/s
 	</http:listener-config>
 	<flow name="cicd-demo2Flow" doc:id="ecab4072-847a-46c6-9d31-1e139e18bbe9" >
 		<http:listener doc:name="Listener" doc:id="a3495aba-df8e-4a6b-b2ab-5f25d964584f" config-ref="HTTP_Listener_config" path="/cicd-demo2"/>
+		<logger level="INFO" doc:name="Logger" doc:id="34e037ce-fffa-48de-afd8-24d7e8592951" message='"i am logger"'/>
 		<ee:transform doc:name="Transform Message" doc:id="0edd3bce-cadc-484c-bd9e-500971d03463" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
