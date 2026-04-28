@@ -20,7 +20,7 @@ jobs:
           distribution: 'zulu'
           cache: maven
 
-      - name: Create Settings.xml
+      - name: Create settings.xml
         run: |
           mkdir -p ~/.m2
           cat <<EOF > ~/.m2/settings.xml
@@ -35,12 +35,24 @@ jobs:
           </settings>
           EOF
 
-      - name: Deploy to CloudHub 2.0
+      # ✅ STEP 1 — Publish to Exchange
+      - name: Publish to Exchange
         run: |
           mvn clean deploy \
-          -DmuleDeploy \
-          -Danypoint.organizationId=adb812a6-130a-4abc-bd34-753e180d3b3f \
-          -Danypoint.clientId=${{ secrets.ANYPOINT_CLIENT_ID }} \
-          -Danypoint.clientSecret=${{ secrets.ANYPOINT_CLIENT_SECRET }} \
+          -DskipMuleDeploy \
+          -s ~/.m2/settings.xml \
+          -DskipTests
+
+      # ⏳ IMPORTANT (avoid 404)
+      - name: Wait for Exchange sync
+        run: sleep 20
+
+      # ✅ STEP 2 — Deploy to CloudHub 2.0
+      - name: Deploy to CloudHub 2.0
+        env:
+          ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
+          ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
+        run: |
+          mvn mule:deploy \
           -s ~/.m2/settings.xml \
           -DskipTests
