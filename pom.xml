@@ -24,47 +24,39 @@
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.2.0</version>
 			</plugin>
+		
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<cloudhub2Deployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<provider>MC</provider>
+						<environment>Sandbox</environment>
+						<target>CloudHub-US-East-2</target>
+						<muleVersion>4.4.0</muleVersion>
+						<server>anypoint-exchange-v3</server>
+						<applicationName>my-ch2-app</applicationName>
+						<replicas>1</replicas>
+						<vCores>0.1</vCores>
+						<deploymentSettings>
+							<generateDefaultPublicUrl>true</generateDefaultPublicUrl>
+						</deploymentSettings>
+					</cloudhub2Deployment>
+				</configuration>
 			</plugin>
-			
-			<plugin>
-                <groupId>org.mule.tools.maven</groupId>
-                <artifactId>mule-maven-plugin</artifactId>
-                <version>${mule.maven.plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <cloudhub2Deployment>
-                        <uri>https://anypoint.mulesoft.com</uri>
-                        <provider>MC</provider>
-                        <environment>Sandbox</environment>
-                        <target>CloudHub-US-East-2</target>
-                        <muleVersion>4.4.0</muleVersion>
-                        <server>anypoint-exchange-v3</server>
-                        <applicationName>my-ch2-app</applicationName>
-                        <replicas>1</replicas>
-                        <vCores>0.1</vCores>
-                        <deploymentSettings>
-                            <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
-                        </deploymentSettings>
-                    </cloudhub2Deployment>
-                </configuration>
-            </plugin>
-    
 		</plugins>
 	</build>
-	
 	<distributionManagement>
-           <repository>
-                 <id>anypoint-exchange-v3</id>
-                 <name>Anypoint Exchange</name>
-                 <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/adb812a6-130a-4abc-bd34-753e180d3b3f/maven</url>
-                 <layout>default</layout>
-           </repository>
-     </distributionManagement>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/adb812a6-130a-4abc-bd34-753e180d3b3f/maven</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
@@ -77,12 +69,6 @@
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-sockets-connector</artifactId>
 			<version>1.2.5</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>c60a5a45-1a0e-4a1d-829b-86543e4e04d9</groupId>
-			<artifactId>mule-plugin-idp-action-89c371cd-07f2-4013-9d2d-fec4f9741c81</artifactId>
-			<version>1.4.0</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>

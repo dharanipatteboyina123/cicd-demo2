@@ -18,18 +18,18 @@ jobs:
           distribution: 'zulu'
           cache: 'maven'
 
-      - name: Create Settings.xml
-        run: |
-          mkdir -p ~/.m2
-          echo "<settings>
-            <servers>
-              <server>
-                <id>anypoint-exchange-v3</id>
-                <username>~~~Client~~~</username>
-                <password>${{ secrets.ANYPOINT_CLIENT_ID }}:${{ secrets.ANYPOINT_CLIENT_SECRET }}</password>
-              </server>
-            </servers>
-          </settings>" > ~/.m2/settings.xml
+     - name: Create Settings.xml
+     run: |
+      mkdir -p ~/.m2
+      echo "<settings>
+       <servers>
+        <server>
+          <id>anypoint-exchange-v3</id>
+          <username>~~~Client~~~</username>
+          <password>${{ secrets.ANYPOINT_CLIENT_ID }}~?~${{ secrets.ANYPOINT_CLIENT_SECRET }}</password>
+        </server>
+       </servers>
+      </settings>" > ~/.m2/settings.xml
 
       - name: Deploy
-        run: mvn clean deploy -DmuleDeploy -DskipTests
+      run: mvn clean deploy -s ~/.m2/settings.xml -DmuleDeploy -DskipTests
