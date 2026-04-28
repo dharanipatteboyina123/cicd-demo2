@@ -35,7 +35,7 @@
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
 						<environment>Sandbox</environment>
-						<target>CloudHub-US-East-1</target>
+						<target>Cloudhub-US-East-1</target>
 						<muleVersion>4.4.0</muleVersion>
 						<server>anypoint-exchange-v3</server>
 						<applicationName>my-ch2-app</applicationName>
