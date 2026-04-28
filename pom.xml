@@ -36,7 +36,7 @@
 						<provider>MC</provider>
 						<environment>Sandbox</environment>
 						<target>Cloudhub-US-East-2</target>
-						<muleVersion>4.4.0</muleVersion>
+						<muleVersion>${app.runtime}</muleVersion>
 						<server>anypoint-exchange-v3</server>
 						<applicationName>my-ch2-app</applicationName>
 						<replicas>1</replicas>
