@@ -2,11 +2,13 @@ name: CH2 Deployment
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,20 +18,22 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-          cache: 'maven'
+          cache: maven
 
-     - name: Create Settings.xml
-     run: |
-      mkdir -p ~/.m2
-      echo "<settings>
-       <servers>
-        <server>
-          <id>anypoint-exchange-v3</id>
-          <username>~~~Client~~~</username>
-          <password>${{ secrets.ANYPOINT_CLIENT_ID }}~?~${{ secrets.ANYPOINT_CLIENT_SECRET }}</password>
-        </server>
-       </servers>
-      </settings>" > ~/.m2/settings.xml
+      - name: Create Settings.xml
+        run: |
+          mkdir -p ~/.m2
+          cat <<EOF > ~/.m2/settings.xml
+          <settings>
+            <servers>
+              <server>
+                <id>anypoint-exchange-v3</id>
+                <username>~~~Client~~~</username>
+                <password>${{ secrets.ANYPOINT_CLIENT_ID }}~?~${{ secrets.ANYPOINT_CLIENT_SECRET }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
-     - name: Deploy
-     run: mvn clean deploy -s ~/.m2/settings.xml -DmuleDeploy -DskipTests
+      - name: Deploy to CloudHub 2.0
+        run: mvn clean deploy -s ~/.m2/settings.xml -DmuleDeploy -DskipTests
