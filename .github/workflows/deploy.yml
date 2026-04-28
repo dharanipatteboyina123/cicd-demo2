@@ -36,4 +36,11 @@ jobs:
           EOF
 
       - name: Deploy to CloudHub 2.0
-        run: mvn clean deploy -s ~/.m2/settings.xml -DmuleDeploy -DskipTests
+        run: |
+          mvn clean deploy \
+          -DmuleDeploy \
+          -Danypoint.organizationId=adb812a6-130a-4abc-bd34-753e180d3b3f \
+          -Danypoint.clientId=${{ secrets.ANYPOINT_CLIENT_ID }} \
+          -Danypoint.clientSecret=${{ secrets.ANYPOINT_CLIENT_SECRET }} \
+          -s ~/.m2/settings.xml \
+          -DskipTests
