@@ -31,5 +31,5 @@ jobs:
        </servers>
       </settings>" > ~/.m2/settings.xml
 
-      - name: Deploy
-      run: mvn clean deploy -s ~/.m2/settings.xml -DmuleDeploy -DskipTests
+     - name: Deploy
+     run: mvn clean deploy -s ~/.m2/settings.xml -DmuleDeploy -DskipTests
